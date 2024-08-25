@@ -1,11 +1,13 @@
 import './App.css'
+import {BrowserRouter as Router} from 'react-router-dom' 
+import AnimatedRoutes from './components/animatedRoutes/AnimatedRoutes'
 
 function App() {
 
   return (
-    <div>
-      <h1 className="text-red-500 text-9xl">Hola</h1>
-    </div>
+    <Router>
+      <AnimatedRoutes/>
+    </Router>
   )
 }
 

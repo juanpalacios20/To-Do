@@ -4,8 +4,8 @@ function NavBar() {
     return (
         <>
             {/* ======================================= NavBar ======================================= */}
-            <div className="NavBarContainer">
-                <div className="NavBar">
+            <div className="NavBarContainer transition-all duration-300">
+                <div className="NavBar transition-all duration-300">
                     <div className="NavBarContent">
                         <div className="NavBarMenu hover:cursor-pointer Transition transition-all duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="NavBarMenuIcon size-20 ml-10">

@@ -5,7 +5,8 @@
     padding: 0;
     height: 35vh;
     width: 100vw;
-    background-color: var(--fondoModoClaro);
+    @apply bg-[var(--fondoModoClaro)];
+    @apply dark:bg-[var(--fondoModoOscuro)]
 }
 
 .NavBar {
@@ -24,8 +25,15 @@
 
 .Home {
     display: flex;
-    background-color: var(--fondoModoClaro);
+    @apply bg-[var(--fondoModoClaro)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
     border-top-right-radius: 35px;
+    padding: 0 2rem;
+    height: 65vh;
+}
+
+.Home h1{
+    @apply dark:text-[var(--colorTerciario)];
 }
 
 .NavBarContent {
@@ -41,7 +49,8 @@
 }
 
 .NavBarMenuIcon {
-    color: var(--colorTerciario);
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
 }
 
 .NavBarLogo {
@@ -53,11 +62,13 @@
 
 .NavBarText {
     font-family: var(--fontFamily);
-    color: var(--colorTerciario);
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
 }
 
 .NavBarIcon {
-    color: var(--colorTerciario);
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
 }
 
 .NavBarPerfil {
@@ -67,15 +78,17 @@
     border-radius: 50%;
     margin-right: 2.5rem;
     padding: 0;
-    background-color: var(--colorTerciario);
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
 }
 
 .NavBarPerfilIcon {
-    color: var(--fondoModoOscuro);
-    fill: var(--fondoModoOscuro);
+    @apply text-[var(--fontColor)];
+    @apply fill-[var(--fontColor)];
+    @apply dark:fill-[var(--colorTerciario)];
+    @apply dark:text-[var(--colorTerciario)];
 }
 
-
-.Transition:hover{
+.Transition:hover {
     transform: scale(1.1);
 }

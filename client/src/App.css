@@ -58,6 +58,8 @@
     position: absolute;
     left: 7rem;
     font-family: var(--fontFamily);
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
 }
 
 .NavBarLogo {

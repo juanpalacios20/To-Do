@@ -1,0 +1,81 @@
+.NavBarContainer {
+    display: flex;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 35vh;
+    width: 100vw;
+    background-color: var(--fondoModoClaro);
+}
+
+.NavBar {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-image: var(--colorPrimario);
+    border-bottom-left-radius: 35px;
+}
+
+.HomeContainer {
+    background-image: var(--colorPrimario);
+    margin: 0;
+    padding: 0;
+}
+
+.Home {
+    display: flex;
+    background-color: var(--fondoModoClaro);
+    border-top-right-radius: 35px;
+}
+
+.NavBarContent {
+    display: flex;
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.NavBarMenu {
+    display: flex;
+    justify-content: start;
+    height: fit-content;
+}
+
+.NavBarMenuIcon {
+    color: var(--colorTerciario);
+}
+
+.NavBarLogo {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    width: 100%;
+}
+
+.NavBarText {
+    font-family: var(--fontFamily);
+    color: var(--colorTerciario);
+}
+
+.NavBarIcon {
+    color: var(--colorTerciario);
+}
+
+.NavBarPerfil {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 50%;
+    margin-right: 2.5rem;
+    padding: 0;
+    background-color: var(--colorTerciario);
+}
+
+.NavBarPerfilIcon {
+    color: var(--fondoModoOscuro);
+    fill: var(--fondoModoOscuro);
+}
+
+
+.Transition:hover{
+    transform: scale(1.1);
+}

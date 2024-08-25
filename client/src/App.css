@@ -150,6 +150,11 @@
     @apply dark:text-[var(--colorTerciario)];
 }
 
+.ModalButtonMenuAdd{
+    display: flex;
+    margin: 1.5rem 45%; 
+}
+
 .NavButtonButton button {
     @apply bg-[var(--colorTerciario)];
     @apply dark:bg-[var(--fondoModoOscuro)];

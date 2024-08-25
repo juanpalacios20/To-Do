@@ -9,11 +9,14 @@
   --colorPrimario: linear-gradient(to left, #F3515F, #EEA138);
   --colorSecundario: #F2D8B2;
   --colorTerciario: #fff;
+  --fontColor: #000;
   --fontFamily: 'josefin sans', sans-serif;
 }
 
 body{
   margin: 0;
   padding: 0;
+  height: 100vh !important;
+  position: relative;
 }
 

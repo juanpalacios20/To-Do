@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion'
 import { Suspense, lazy } from 'react'
 
 // Estas son rutas dinamicas para hacer la carga de las paginas de forma diferida
-const LazyHome = lazy(() => import('../pages/home/Home.jsx'))
+const LazyHome = lazy(() => import('../pages/home/home'))
 
 
 function AnimatedRoutes() {

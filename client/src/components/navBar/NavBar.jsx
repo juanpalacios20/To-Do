@@ -1,7 +1,9 @@
+import DarkMode from "../darkMode/DarkMode"
+
 function NavBar() {
     return (
         <>
-        {/* ======================================= NavBar ======================================= */}
+            {/* ======================================= NavBar ======================================= */}
             <div className="NavBarContainer">
                 <div className="NavBar">
                     <div className="NavBarContent">
@@ -24,6 +26,8 @@ function NavBar() {
                     </div>
                 </div>
             </div>
+            {/* ======================================= Dark Mode ======================================= */}
+            <DarkMode />
         </>
     )
 }

@@ -5,13 +5,14 @@ function NavButton(props) {
 
     NavButton.propTypes = {
         children: PropTypes.node.isRequired,
-        text: PropTypes.string.isRequired
+        text: PropTypes.string.isRequired,
+        redirectTo: PropTypes.string.isRequired
     }
 
     const navigate = useNavigate()
 
     const PerfilNavigate = () => {
-        navigate('/profile')
+        navigate(`/${props.redirectTo}`)
     }
 
     return (

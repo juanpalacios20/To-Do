@@ -3,8 +3,8 @@ import ListCardButton from "../../listCard/ListCardButton"
 
 function Home() {
     return (
-        <div className="HomeContainer transition-all duration-300">
-            <div className="Home transition-all duration-300">
+        <div className="HomeContainer PageContentBack transition-all duration-300">
+            <div className="Home PageContent transition-all duration-300">
                 <div className="HomeCards flex flex-row absolute w-[98%] h-[70%] justify-evenly">
                     <ListCard estado="Pendientes" >
                         {/* Aqui va la lista de tareas */}

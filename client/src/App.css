@@ -158,19 +158,22 @@
     @apply dark:hover:text-[var(--fontColor)];
 }
 
-.HomeContainer {
+.Home {
+    height: 65vh;
+}
+
+.PageContentBack {
     background-image: var(--colorPrimario);
     margin: 0;
     padding: 0;
 }
 
-.Home {
+.PageContent {
     display: flex;
     @apply bg-[var(--fondoModoClaro)];
     @apply dark:bg-[var(--fondoModoOscuro)];
     border-top-right-radius: 35px;
     padding: 0 2rem;
-    height: 65vh;
     width: 100vw;
     gap: 2rem;
 }

@@ -7,11 +7,11 @@ from django.utils import timezone
 
 # Create your models here.
 class tareas (models.Model):
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(User, default=[1])
     titulo = models.CharField(max_length=200)
     descripcion = models.CharField(max_length=500)
-    estado = models.ForeignKey(estado, on_delete=models.CASCADE)
-    categoria = models.ForeignKey(categoria, on_delete=models.CASCADE)
+    estado = models.ForeignKey(estado, on_delete=models.CASCADE, default=1)
+    categoria = models.ForeignKey(categoria, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.titulo

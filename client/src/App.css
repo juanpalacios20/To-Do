@@ -6,7 +6,7 @@
     height: 35vh;
     width: 100vw;
     @apply bg-[var(--fondoModoClaro)];
-    @apply dark:bg-[var(--fondoModoOscuro)]
+    @apply dark:bg-[var(--fondoModoOscuro)];
 }
 
 .NavBar {
@@ -15,25 +15,6 @@
     width: 100%;
     background-image: var(--colorPrimario);
     border-bottom-left-radius: 35px;
-}
-
-.HomeContainer {
-    background-image: var(--colorPrimario);
-    margin: 0;
-    padding: 0;
-}
-
-.Home {
-    display: flex;
-    @apply bg-[var(--fondoModoClaro)];
-    @apply dark:bg-[var(--fondoModoOscuro)];
-    border-top-right-radius: 35px;
-    padding: 0 2rem;
-    height: 65vh;
-}
-
-.Home h1{
-    @apply dark:text-[var(--colorTerciario)];
 }
 
 .NavBarContent {
@@ -102,6 +83,10 @@
     transform: scale(1.1);
 }
 
+.Transition2:hover {
+    transform: scale(1.05);
+}
+
 .ModalContainer {
     display: flex;
     all: unset;
@@ -113,6 +98,8 @@
     top: 1.5rem;
     right: 1.5rem;
     border-radius: 25px;
+    z-index: 1000;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .ModalContainerMenu {
@@ -126,6 +113,8 @@
     top: 1.5rem;
     left: 1.5rem;
     border-radius: 25px;
+    z-index: 1000;
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .ModalOpenIconPerfil {
@@ -150,9 +139,11 @@
     @apply dark:text-[var(--colorTerciario)];
 }
 
-.ModalButtonMenuAdd{
+.ModalButtonMenuAdd {
     display: flex;
-    margin: 1.5rem 45%; 
+    margin: 1.5rem 45%;
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
 }
 
 .NavButtonButton button {
@@ -162,4 +153,77 @@
     @apply dark:border-[var(--colorTerciario)];
     @apply text-[var(--fontColor)];
     @apply dark:text-[var(--colorTerciario)];
+    @apply hover:bg-[var(--fondoModoClaro)];
+    @apply dark:hover:bg-[var(--colorSecundario)];
+    @apply dark:hover:text-[var(--fontColor)];
+}
+
+.HomeContainer {
+    background-image: var(--colorPrimario);
+    margin: 0;
+    padding: 0;
+}
+
+.Home {
+    display: flex;
+    @apply bg-[var(--fondoModoClaro)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    border-top-right-radius: 35px;
+    padding: 0 2rem;
+    height: 65vh;
+    width: 100vw;
+    gap: 2rem;
+}
+
+.Home h1 {
+    @apply dark:text-[var(--colorTerciario)];
+    
+}
+
+.HomeCards {
+    top: 12rem;
+}
+
+.ListCardContainer {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    @apply bg-[var(--colorSecundario)];
+}
+
+.ListCardText{
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--fontColor)];
+    font-family: var(--fontFamily);
+}
+
+.ListCardBody{
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    scrollbar-color: #F3515F transparent;
+    padding: 0 20px 0 20px;
+    height: 75%;
+    transition: all 0.5s ease-in-out;
+}
+
+.ListCardAdd{
+    
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+}
+
+.ListCardAdd svg{
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    border-radius: 50%
+}
+
+.ListCardButtonButton {
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+    font-family: var(--fontFamily);
 }

@@ -17,7 +17,7 @@ function NavButton(props) {
 
     return (
         <div className="NavButtonButton flex flex-col justify-center items-center w-full">
-            <button onClick={PerfilNavigate} className=" flex text-4xl text-center w-full p-4 m-2 border-y-2 rounded-2xl">
+            <button onClick={PerfilNavigate} className=" flex text-4xl text-center w-[90%] p-4 m-2 transition-all duration-300 rounded-lg">
                 <div className="NavButtonIcon">
                     {props.children}
                 </div>

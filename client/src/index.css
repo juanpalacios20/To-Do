@@ -11,6 +11,7 @@
   --colorTerciario: #fff;
   --fontColor: #000;
   --fontFamily: 'josefin sans', sans-serif;
+  overflow: hidden;
 }
 
 body{

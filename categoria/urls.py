@@ -1,8 +1,10 @@
-from rest_framework import viewsets
-from .categoria_serializer import categoriaSerializar
-from .models import categoria
+from django.urls import path, include 
+from rest_framework import routers
+from categoria import views
 
-# Create your views here.
-class TareasView (viewsets.ModelViewSet):
-    serializer_class = categoriaSerializar
-    queryset = categoria.objects.all()
+router = routers.DefaultRouter()
+router.register( r'categoria' , views.categoriaView, 'categoria')
+
+urlpatterns = [
+    path("api/v1/", include (router.urls))
+]

@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tareas/', include('tareas.urls')),  
     path('estado/', include('estado.urls')),  
+    path('categoria/', include('categoria.urls')),
     
 
     path('tareas/obtener/', views.obtener_tarea, name='obtener_tarea'),  

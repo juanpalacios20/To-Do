@@ -6,6 +6,9 @@ from tareas.serializer import TareasSerializar
 from tareas.models import tareas  # Renombrado a Tareas
 from django.http import JsonResponse
 from estado.models import estado
+from categoria.models import categoria
+from categoria.categoria_serializer import categoriaSerializar
+from rest_framework.views import APIView
 
 @api_view(['GET'])
 def obtener_tarea(request):
@@ -60,6 +63,23 @@ def actualizar_estado_tarea(request, id):
     else:
         return Response({"error": "Estado no proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def obtener_categorias(request):
+    categorias = categoria.objects.all()
+    serializer = categoriaSerializar(categorias, many=True)
+    return Response(serializer.data)
+
+class TareaListView(APIView):
+    def get(self, request, *args, **kwargs):
+        categoria_id = request.query_params.get('categoria', None)
+        
+        if categoria_id is not None:
+            tareas = tareas.objects.filter(categoria_id=categoria_id)
+        else:
+            tareas = tareas.objects.all()
+        
+        serializer = TareasSerializar(tareas, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 

@@ -1,9 +1,9 @@
-import { useState, useRef } from "react"
-
-import PropTypes from 'prop-types'
+import { useState, useRef, useEffect } from "react";
+import PropTypes from 'prop-types';
+import axios from 'axios'; // Asegúrate de tener axios instalado
+import NavButton from "./NavButton";
 
 function PerfilModal(props) {
-
     PerfilModal.propTypes = {
         state: PropTypes.bool.isRequired,
         toggleOff: PropTypes.func.isRequired,
@@ -11,21 +11,34 @@ function PerfilModal(props) {
         children: PropTypes.object.isRequired
     };
 
-    const [open, setOpen] = useState(false)
-    const ref = useRef()
+    const [open, setOpen] = useState(false);
+    const [categorias, setCategorias] = useState([]);
+    const ref = useRef();
 
+    useEffect(() => {
+        if (props.state) {
+            axios.get('http://localhost:8000/categorias/obtener/')
+                .then(response => {
+                    setCategorias(response.data);
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error("Hubo un error al obtener las categorías:", error);
+                });
+        }
+    }, [props.state]);
 
     function CloseModal() {
-        props.toggleOff()
+        props.toggleOff();
     }
 
     function Out() {
-        ref.current.focus()
-        setOpen(true)
+        ref.current.focus();
+        setOpen(true);
     }
 
     function In() {
-        setOpen(false)
+        setOpen(false);
     }
 
     if (props.state === true) {
@@ -48,7 +61,17 @@ function PerfilModal(props) {
                             </svg>
                         </div>
                         <div className="ModalNombre flex ml-32 w-full h-fit py-6">
-                            <span className="ModalNombre text-5xl text-center">Carpeta</span>
+                            <span className="ModalNombre text-5xl text-center">Carpetas</span>
+                        </div>
+
+                        <div className="CategoriasList">
+                            {categorias.map(categoria => (
+                                <NavButton text={categoria.nombre} redirectTo="Home" key={categoria.id}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10 mr-2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776" />
+                                    </svg>
+                                </NavButton>
+                            ))}
                         </div>
                     </>
                 }
@@ -60,10 +83,10 @@ function PerfilModal(props) {
                 </button>
                 }
             </dialog>
-        )
+        );
     } else {
-        return null
+        return null;
     }
 }
 
-export default PerfilModal
+export default PerfilModal;

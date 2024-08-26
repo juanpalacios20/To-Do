@@ -23,7 +23,7 @@ function TaskModal(props) {
                             <label className='text-4xl' htmlFor="Descripcion">Descripcion</label>
                             <textarea className='TaskModalFormDescripcionTextArea text-2xl resize-none rounded-xl' name="Descripcion" id="Descripcion" cols="30" rows="5"></textarea>
                         </div>
-                        <div className="TaskModalFormButtons flex justify-evenly w-[50%] mx-auto">
+                        <div className="TaskModalFormButtons flex justify-evenly w-[80%] mx-auto">
                             <button className='TaskModalFormButton py-2 px-14 text-xl Transition transition-all duration-300' type="submit">Guardar</button>
                             <button className='TaskModalFormButton py-2 px-14 text-xl bg-red-700 dark:bg-red-700 Transition transition-all duration-300' onClick={() => props.toggleOff()}>Cancelar</button>
                             {props.tarea ? <button className='TaskModalFormButton py-2 px-14 text-xl bg-red-700 dark:bg-red-700 Transition transition-all duration-300' onClick={''}>Cancelar</button> : null}

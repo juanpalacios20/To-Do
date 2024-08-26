@@ -110,7 +110,7 @@ function Home() {
                                     {column.children.map(card => (
                                         <Draggable key={card.id}>
                                             <div {...card.props}>
-                                                <ListCardButton onClick={() => setState(true)} text={card.data} task={card} />
+                                                <ListCardButton onClick={() => setState(true)} text={card.data} />
                                             </div>
                                         </Draggable>
                                     ))}

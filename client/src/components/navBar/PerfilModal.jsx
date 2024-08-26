@@ -8,7 +8,7 @@ function PerfilModal(props) {
         state: PropTypes.bool.isRequired,
         toggleOff: PropTypes.func.isRequired,
         perfil: PropTypes.bool,
-        children: PropTypes.object.isRequired
+        children: PropTypes.array
     };
 
     const [open, setOpen] = useState(false);

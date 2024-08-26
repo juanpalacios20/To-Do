@@ -359,3 +359,22 @@
 .TaskModalFormButton {
     @apply rounded-xl
 }
+
+.AgregarCategoriaIcon {
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+    position: absolute;
+}
+
+.AgregarCategoria input {
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+    @apply dark:border-2;
+    @apply dark:border-[var(--colorTerciario)];
+    @apply border-2;
+    @apply border-[var(--fondoModoOscuro)];
+}

@@ -15,19 +15,6 @@ function PerfilModal(props) {
     const [categorias, setCategorias] = useState([]);
     const ref = useRef();
 
-    useEffect(() => {
-        if (props.state) {
-            axios.get('http://localhost:8000/categorias/obtener/')
-                .then(response => {
-                    setCategorias(response.data);
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error("Hubo un error al obtener las categorías:", error);
-                });
-        }
-    }, [props.state]);
-
     function CloseModal() {
         props.toggleOff();
     }
@@ -64,19 +51,11 @@ function PerfilModal(props) {
                             <span className="ModalNombre text-5xl text-center">Carpetas</span>
                         </div>
 
-                        <div className="CategoriasList">
-                            {categorias.map(categoria => (
-                                <NavButton text={categoria.nombre} redirectTo="Home" key={categoria.id}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10 mr-2">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776" />
-                                    </svg>
-                                </NavButton>
-                            ))}
-                        </div>
+                        {props.children}
                     </>
                 }
-                {props.children}
-                {props.perfil ? null : <button className="ModalButtonMenuAdd Transition transition-all duration-300 z-50" onClick={''}>
+
+                {props.perfil ? null : <button className="ModalButtonMenuAdd Transition transition-all duration-300 z-50" onClick={console.log('Hola')}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-16">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>

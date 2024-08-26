@@ -29,7 +29,7 @@ function Home() {
                 </div>
             </div>
             {/* ======================================= Dark Mode ======================================= */}
-            <LazyModal state={taskModal} toggleOff={closeTaskModal} />
+            <LazyModal tareas state={taskModal} toggleOff={closeTaskModal} />
         </>
     )
 }

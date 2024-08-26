@@ -1,0 +1,232 @@
+.NavBarContainer {
+    display: flex;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 35vh;
+    width: 100vw;
+    @apply bg-[var(--fondoModoClaro)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+}
+
+.NavBar {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-image: var(--colorPrimario);
+    border-bottom-left-radius: 35px;
+}
+
+.NavBarContent {
+    display: flex;
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.NavBarMenu {
+    display: flex;
+    justify-content: start;
+    height: fit-content;
+}
+
+.NavBarMenuIcon {
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
+}
+
+.NavBarCarpeta {
+    display: flex;
+    position: absolute;
+    left: 7rem;
+    font-family: var(--fontFamily);
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
+}
+
+.NavBarLogo {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    width: 100%;
+}
+
+.NavBarText {
+    font-family: var(--fontFamily);
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
+}
+
+.NavBarIcon {
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
+}
+
+.NavBarPerfil {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 50%;
+    margin-right: 2.5rem;
+    padding: 0;
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+}
+
+.NavBarPerfilIcon {
+    @apply text-[var(--fontColor)];
+    @apply fill-[var(--fontColor)];
+    @apply dark:fill-[var(--colorTerciario)];
+    @apply dark:text-[var(--colorTerciario)];
+}
+
+.Transition:hover {
+    transform: scale(1.1);
+}
+
+.Transition2:hover {
+    transform: scale(1.05);
+}
+
+.ModalContainer {
+    display: flex;
+    all: unset;
+    height: 30vh;
+    width: 30vw;
+    position: fixed;
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    top: 1.5rem;
+    right: 1.5rem;
+    border-radius: 25px;
+    z-index: 1000;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.ModalContainerMenu {
+    display: flex;
+    all: unset;
+    height: 30vh;
+    width: 30vw;
+    position: fixed;
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    top: 1.5rem;
+    left: 1.5rem;
+    border-radius: 25px;
+    z-index: 1000;
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.ModalOpenIconPerfil {
+    background-image: var(--colorPrimario);
+    position: fixed;
+    top: 1.8rem;
+    right: 0.1rem;
+}
+
+.ModalOpenIconMenu {
+    position: fixed;
+    top: 2rem;
+    left: 2.9rem;
+}
+
+.ModalNombre {
+    font-family: var(--fontFamily);
+}
+
+.ModalNombre span {
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+}
+
+.ModalButtonMenuAdd {
+    display: flex;
+    margin: 1.5rem 45%;
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+}
+
+.NavButtonButton button {
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    @apply border-[var(--fondoModoOscuro)];
+    @apply dark:border-[var(--colorTerciario)];
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+    @apply hover:bg-[var(--fondoModoClaro)];
+    @apply dark:hover:bg-[var(--colorSecundario)];
+    @apply dark:hover:text-[var(--fontColor)];
+}
+
+.Home {
+    height: 65vh;
+}
+
+.PageContentBack {
+    background-image: var(--colorPrimario);
+    margin: 0;
+    padding: 0;
+}
+
+.PageContent {
+    display: flex;
+    @apply bg-[var(--fondoModoClaro)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    border-top-right-radius: 35px;
+    padding: 0 2rem;
+    width: 100vw;
+    gap: 2rem;
+}
+
+.Home h1 {
+    @apply dark:text-[var(--colorTerciario)];
+    
+}
+
+.HomeCards {
+    top: 12rem;
+}
+
+.ListCardContainer {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    @apply bg-[var(--colorSecundario)];
+}
+
+.ListCardText{
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--fontColor)];
+    font-family: var(--fontFamily);
+}
+
+.ListCardBody{
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    scrollbar-color: #F3515F transparent;
+    padding: 0 20px 0 20px;
+    height: 75%;
+    transition: all 0.5s ease-in-out;
+}
+
+.ListCardAdd{
+    
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+}
+
+.ListCardAdd svg{
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    border-radius: 50%
+}
+
+.ListCardButtonButton {
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+    font-family: var(--fontFamily);
+}

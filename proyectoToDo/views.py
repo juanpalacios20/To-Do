@@ -21,12 +21,37 @@ def obtener_tarea(request):
 
 @api_view(['POST'])
 def crear_tarea(request):
-    serializer = TareasSerializar(data=request.data)
+    data = request.data.copy()
+
+    # Asignar valores predeterminados si no están presentes
+    if 'user' not in data:
+        data['user'] = [1]  # Asegúrate de enviar una lista para ManyToManyField
+        
+    if 'categoria' not in data:
+        data['categoria'] = 1  # ID de la categoría por defecto
+
+    if 'estado' not in data:
+        data['estado'] = 1  # ID del estado por defecto
+
+    # Convertir los IDs en diccionarios si están presentes
+    if isinstance(data.get('estado'), int):
+        estado_instance = get_object_or_404(estado, id=data['estado'])
+        data['estado'] = estado_instance.id  # Asegúrate de que sea un ID
+
+    if isinstance(data.get('categoria'), int):
+        categoria_instance = get_object_or_404(categoria, id=data['categoria'])
+        data['categoria'] = categoria_instance.id  # Asegúrate de que sea un ID
+
+    serializer = TareasSerializar(data=data)
+    
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 @api_view(['PUT'])
 def editar_tarea(request, id):

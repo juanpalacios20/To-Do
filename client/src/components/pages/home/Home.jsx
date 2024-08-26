@@ -5,11 +5,12 @@ import { applyDrag } from './utils';
 import ListCard from "../../listCard/ListCard";
 import ListCardButton from "../../listCard/ListCardButton";
 
-const LazyModal = lazy(() => import('../../Modal/TaskModal.jsx'))
+const LazyModal = lazy(() => import('../../Modal/TaskModal.jsx'));
 
 function Home() {
     const [tareas, setTareas] = useState([]);
     const [state, setState] = useState(false);
+    const [selectedTask, setSelectedTask] = useState(null); // Nuevo estado para la tarea seleccionada
     const [scene, setScene] = useState({
         type: "container",
         props: { orientation: "horizontal" },
@@ -41,7 +42,8 @@ function Home() {
                                 className: "card",
                                 style: { backgroundColor: pickColor() }
                             },
-                            data: tarea.titulo
+                            data: tarea.titulo,
+                            tareaData: tarea // Incluye la información completa de la tarea
                         }))
                     }))
                 };
@@ -52,8 +54,6 @@ function Home() {
                 console.error("Hubo un error al obtener las tareas:", error);
             });
     }, []);
-
-    console.log(tareas);
 
     const onCardDrop = (columnId, dropResult) => {
         if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
@@ -67,9 +67,8 @@ function Home() {
 
             setScene(updatedScene);
 
-            // Actualiza el estado de las tareas en el backend
             const movedTaskId = dropResult.payload.id;
-            const nuevoEstado = column.name;  // Usa el nombre de la columna para determinar el estado
+            const nuevoEstado = column.name;
 
             axios.put(`http://localhost:8000/tareas/${movedTaskId}/actualizar_estado/`, { estado: nuevoEstado })
                 .then(response => {
@@ -81,10 +80,24 @@ function Home() {
         }
     };
 
-
-
     const getCardPayload = (columnId, index) => {
         return scene.children.find(p => p.id === columnId).children[index];
+    };
+
+    const handleTaskCreated = (newTask) => {
+        const updatedScene = { ...scene };
+        const column = updatedScene.children.find(p => p.name === 'Pendientes');
+        column.children.push({
+            type: "draggable",
+            id: newTask.id.toString(),
+            props: {
+                className: "card",
+                style: { backgroundColor: pickColor() }
+            },
+            data: newTask.titulo,
+            tareaData: newTask
+        });
+        setScene(updatedScene);
     };
 
     return (
@@ -93,7 +106,7 @@ function Home() {
                 <div className="Home PageContent transition-all duration-300">
                     <div className="HomeCards flex flex-row absolute w-[98%] h-[70%] justify-evenly">
                         {scene.children.map(column => (
-                            <ListCard add={() => setState(true)} key={column.id} estado={column.name}>
+                            <ListCard add={() => { setState(true); setSelectedTask(null); }} key={column.id} estado={column.name}>
                                 <Container
                                     orientation="vertical"
                                     groupName="col"
@@ -110,7 +123,7 @@ function Home() {
                                     {column.children.map(card => (
                                         <Draggable key={card.id}>
                                             <div {...card.props}>
-                                                <ListCardButton onClick={() => setState(true)} text={card.data} />
+                                                <ListCardButton onClick={() => { setState(true); setSelectedTask(card.tareaData); }} text={card.data} />
                                             </div>
                                         </Draggable>
                                     ))}
@@ -120,12 +133,11 @@ function Home() {
                     </div>
                 </div>
             </div>
-            {/* Modal del formulario para crear o editar una tarea */}
             <Suspense>
-                <LazyModal tarea state={state} toggleOff={() => setState(false)} />
+                <LazyModal tarea={selectedTask} state={state} toggleOff={() => setState(false)} onTaskCreated={handleTaskCreated} />
             </Suspense>
         </>
-    );
+    )
 }
 
 const pickColor = () => {

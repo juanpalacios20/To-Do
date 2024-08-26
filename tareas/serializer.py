@@ -14,4 +14,9 @@ class TareasSerializar(serializers.ModelSerializer):
 
     class Meta:
         model = tareas
-        fields = ['id', 'titulo', 'descripcion', 'estado', 'categoria']
+        fields = ['id', 'titulo', 'descripcion', 'user', 'estado', 'categoria']
+        extra_kwargs = {
+            'user': {'default': 1},
+            'estado': {'default': 1},
+            'categoria': {'default': 1}
+        } 

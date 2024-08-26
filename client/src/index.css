@@ -1,13 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root{
   margin: 0;
   padding: 0;
+  --fondoModoClaro: #d9d9d9;
+  --fondoModoOscuro: #404040;
+  --colorPrimario: linear-gradient(to left, #F3515F, #EEA138);
+  --colorSecundario: #F2D8B2;
+  --colorTerciario: #fff;
+  --fontColor: #000;
+  --fontFamily: 'josefin sans', sans-serif;
+  overflow: hidden;
 }
 
 body{
   margin: 0;
   padding: 0;
+  height: 100vh !important;
+  position: relative;
 }
+

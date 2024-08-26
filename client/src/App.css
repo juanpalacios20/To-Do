@@ -82,6 +82,22 @@
     @apply dark:bg-[var(--fondoModoOscuro)];
 }
 
+.NavBarVolver {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 50%;
+    margin-right: 2.5rem;
+    @apply bg-[transparent];
+}
+
+.NavBarVolverLink {
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
+    font-family: var(--fontFamily);
+    text-decoration: underline
+}
+
 .NavBarPerfilIcon {
     @apply text-[var(--fontColor)];
     @apply fill-[var(--fontColor)];
@@ -237,4 +253,8 @@
     @apply text-[var(--fontColor)];
     @apply dark:text-[var(--colorTerciario)];
     font-family: var(--fontFamily);
+}
+
+.Perfil {
+    height: 83vh;
 }

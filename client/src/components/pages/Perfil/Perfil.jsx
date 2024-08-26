@@ -1,8 +1,8 @@
 function Perfil () {
     return(
-        <div className="PerfilContainer PageContentBack">
-            <div className="Perfil PageContent">
-                <h2 className="PerfilText">Hola</h2>
+        <div className="PerfilContainer PageContentBack transition-all duration-300">
+            <div className="Perfil PageContent transition-all duration-300">
+                    
             </div>
         </div>
     )

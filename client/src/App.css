@@ -1,9 +1,19 @@
-.NavBarContainer {
+.NavBarContainerTasks {
     display: flex;
     position: relative;
     margin: 0;
     padding: 0;
     height: 35vh;
+    width: 100vw;
+    @apply bg-[var(--fondoModoClaro)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+}
+
+.NavBarContainerPerfil {
+    display: flex;
+    position: relative;
+    margin: 0;
+    padding: 0;
     width: 100vw;
     @apply bg-[var(--fondoModoClaro)];
     @apply dark:bg-[var(--fondoModoOscuro)];
@@ -180,7 +190,6 @@
 
 .Home h1 {
     @apply dark:text-[var(--colorTerciario)];
-    
 }
 
 .HomeCards {
@@ -192,35 +201,34 @@
     @apply bg-[var(--colorSecundario)];
 }
 
-.ListCardText{
+.ListCardText {
     @apply text-[var(--fontColor)];
     @apply dark:text-[var(--fontColor)];
     font-family: var(--fontFamily);
 }
 
-.ListCardBody{
+.ListCardBody {
     display: flex;
     flex-direction: column;
     scrollbar-width: thin;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-gutter: stable;
-    scrollbar-color: #F3515F transparent;
+    scrollbar-color: #f3515f transparent;
     padding: 0 20px 0 20px;
     height: 75%;
     transition: all 0.5s ease-in-out;
 }
 
-.ListCardAdd{
-    
+.ListCardAdd {
     @apply text-[var(--fontColor)];
     @apply dark:text-[var(--colorTerciario)];
 }
 
-.ListCardAdd svg{
+.ListCardAdd svg {
     @apply bg-[var(--colorTerciario)];
     @apply dark:bg-[var(--fondoModoOscuro)];
-    border-radius: 50%
+    border-radius: 50%;
 }
 
 .ListCardButtonButton {

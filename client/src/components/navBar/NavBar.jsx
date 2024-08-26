@@ -4,6 +4,7 @@ import NavButton from "./NavButton.jsx"
 import { PropTypes } from 'prop-types'
 import { Link } from "react-router-dom"
 import axios from 'axios'; // Asegúrate de tener axios instalado
+import AgregarCategoria from "./AgregarCategoria.jsx"
 
 const LazyModal = lazy(() => import("./PerfilModal.jsx"))
 
@@ -15,6 +16,7 @@ function NavBar(props) {
 
     const [perfilModal, setPerfilModal] = useState(false)
     const [menuModal, setMenuModal] = useState(false)
+    const [newCategory, setNewCategory] = useState(false);
 
     function closePerfilModal() {
         setPerfilModal(false)
@@ -22,6 +24,12 @@ function NavBar(props) {
 
     function closeMenuModal() {
         setMenuModal(false)
+    }
+
+    const handleSubmit = (event) => {
+        console.log(event.target.value);
+        // Aqui va el código para agregar la categoría al presionar el enter
+        setNewCategory(false);
     }
 
     const [categorias, setCategorias] = useState([]);
@@ -38,8 +46,6 @@ function NavBar(props) {
                 });
         }
     }, [menuModal]);
-
-    console.log(props.location.pathname)
 
     return (
         <>
@@ -65,7 +71,7 @@ function NavBar(props) {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                 </svg>
                             </div>
-                            : ( props.location.pathname === "/Perfil" ?
+                            : (props.location.pathname === "/Perfil" ?
                                 <div className="NavBarVolver hover:cursor-pointer my-auto Transition transition-all duration-300">
                                     <Link to={-1} className="NavBarVolverLink text-4xl font-bold">Volver</Link>
                                 </div>
@@ -92,8 +98,8 @@ function NavBar(props) {
                     </LazyModal>
                 </Suspense>
                 <Suspense>
-                    <LazyModal state={menuModal} toggleOff={closeMenuModal} >
-                    <div className="CategoriasList">
+                    <LazyModal newCategory={newCategory} setNewCategory={setNewCategory} state={menuModal} toggleOff={closeMenuModal} >
+                        <div className="CategoriasList">
                             {categorias.map(categoria => (
                                 <NavButton text={categoria.nombre} redirectTo="Home" key={categoria.id}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10 mr-2">
@@ -101,7 +107,8 @@ function NavBar(props) {
                                     </svg>
                                 </NavButton>
                             ))}
-                        </div>                        
+                            <AgregarCategoria open={newCategory} onKeyDown={(e) => {if (e.key === 'Enter') {handleSubmit(e)}}} /*El input recibe cualquier atributo desde aqui*/ />
+                        </div>
                     </LazyModal>
                 </Suspense>
             </div >

@@ -25,7 +25,7 @@ function TaskModal(props) {
                         </div>
                         <div className="TaskModalFormButtons flex justify-evenly w-[50%] mx-auto">
                             <button className='TaskModalFormButton py-2 px-14 text-xl Transition transition-all duration-300' type="submit">Guardar</button>
-                            <button className='TaskModalFormButton py-2 px-14 text-xl bg-red-700 dark:bg-red-700 Transition transition-all duration-300' onClick={() => props.toggleOff()}>Cancelar</button>
+                            <button className='TaskModalFormButton py-2 px-14 text-xl bg-red-700 dark:bg-red-700 Transition transition-all duration-300' onClick={() => props.toggleOff()}>Eliminar</button>
                             {props.tarea ? <button className='TaskModalFormButton py-2 px-14 text-xl bg-red-700 dark:bg-red-700 Transition transition-all duration-300' onClick={''}>Cancelar</button> : null}
                         </div>
                     </form>

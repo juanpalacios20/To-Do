@@ -1,9 +1,19 @@
-.NavBarContainer {
+.NavBarContainerTasks {
     display: flex;
     position: relative;
     margin: 0;
     padding: 0;
     height: 35vh;
+    width: 100vw;
+    @apply bg-[var(--fondoModoClaro)];
+    @apply dark:bg-[var(--fondoModoOscuro)];
+}
+
+.NavBarContainerPerfil {
+    display: flex;
+    position: relative;
+    margin: 0;
+    padding: 0;
     width: 100vw;
     @apply bg-[var(--fondoModoClaro)];
     @apply dark:bg-[var(--fondoModoOscuro)];
@@ -70,6 +80,22 @@
     padding: 0;
     @apply bg-[var(--colorTerciario)];
     @apply dark:bg-[var(--fondoModoOscuro)];
+}
+
+.NavBarVolver {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 50%;
+    margin-right: 2.5rem;
+    @apply bg-[transparent];
+}
+
+.NavBarVolverLink {
+    @apply text-[var(--colorTerciario)];
+    @apply dark:text-[var(--fontColor)];
+    font-family: var(--fontFamily);
+    text-decoration: underline
 }
 
 .NavBarPerfilIcon {
@@ -180,7 +206,6 @@
 
 .Home h1 {
     @apply dark:text-[var(--colorTerciario)];
-    
 }
 
 .HomeCards {
@@ -192,35 +217,34 @@
     @apply bg-[var(--colorSecundario)];
 }
 
-.ListCardText{
+.ListCardText {
     @apply text-[var(--fontColor)];
     @apply dark:text-[var(--fontColor)];
     font-family: var(--fontFamily);
 }
 
-.ListCardBody{
+.ListCardBody {
     display: flex;
     flex-direction: column;
     scrollbar-width: thin;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-gutter: stable;
-    scrollbar-color: #F3515F transparent;
+    scrollbar-color: #f3515f transparent;
     padding: 0 20px 0 20px;
     height: 75%;
     transition: all 0.5s ease-in-out;
 }
 
-.ListCardAdd{
-    
+.ListCardAdd {
     @apply text-[var(--fontColor)];
     @apply dark:text-[var(--colorTerciario)];
 }
 
-.ListCardAdd svg{
+.ListCardAdd svg {
     @apply bg-[var(--colorTerciario)];
     @apply dark:bg-[var(--fondoModoOscuro)];
-    border-radius: 50%
+    border-radius: 50%;
 }
 
 .ListCardButtonButton {
@@ -229,4 +253,47 @@
     @apply text-[var(--fontColor)];
     @apply dark:text-[var(--colorTerciario)];
     font-family: var(--fontFamily);
+}
+
+.Perfil {
+    height: 83vh;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.Perfil h3 {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.Perfil h4 {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    @apply text-3xl;
+}
+
+.PerfilContentText {
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+    font-family: var(--fontFamily);
+}
+
+.PerfilContentButton {
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fontColor)];
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+    font-family: var(--fontFamily);
+}
+
+.PerfilContentStatsPendientesContainer {
+    @apply bg-[var(--colorTerciario)];
+    @apply dark:bg-[var(--fontColor)];
+    @apply text-[var(--fontColor)];
+    @apply dark:text-[var(--colorTerciario)];
+    font-family: var(--fontFamily);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }

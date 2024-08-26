@@ -6,7 +6,8 @@ function NavButton(props) {
     NavButton.propTypes = {
         children: PropTypes.node.isRequired,
         text: PropTypes.string.isRequired,
-        redirectTo: PropTypes.string.isRequired
+        redirectTo: PropTypes.string.isRequired,
+        cerrar: PropTypes.func
     }
 
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ function NavButton(props) {
 
     return (
         <div className="NavButtonButton flex flex-col justify-center items-center w-full">
-            <button onClick={PerfilNavigate} className=" flex text-4xl text-center w-[90%] p-4 m-2 transition-all duration-300 rounded-lg">
+            <button onClick={() => { PerfilNavigate(), props.cerrar() }} className=" flex text-4xl text-center w-[90%] p-4 m-2 transition-all duration-300 rounded-lg">
                 <div className="NavButtonIcon">
                     {props.children}
                 </div>

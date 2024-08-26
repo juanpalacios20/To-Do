@@ -7,6 +7,7 @@
   --fondoModoClaro: #d9d9d9;
   --fondoModoOscuro: #404040;
   --colorPrimario: linear-gradient(to left, #F3515F, #EEA138);
+  --colorPrimarioVertical: linear-gradient(to top, #F3515F, #EEA138);
   --colorSecundario: #F2D8B2;
   --colorTerciario: #fff;
   --fontColor: #000;

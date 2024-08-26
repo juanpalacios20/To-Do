@@ -5,6 +5,7 @@ function ListCard(props) {
     ListCard.propTypes = {
         estado: PropTypes.string.isRequired,
         children: PropTypes.node.isRequired,
+        add: PropTypes.func.isRequired
     }
 
     return (
@@ -30,7 +31,7 @@ function ListCard(props) {
             <div className="ListCardBody">
                 {props.children}
                 {props.estado === 'Pendientes' &&
-                    <div className="ListCardAdd flex my-8 mx-0 align-center justify-center cursor-pointer Transition transition-all duration-300">
+                    <div onClick={props.add} className="ListCardAdd flex my-8 mx-0 align-center justify-center cursor-pointer Transition transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-16">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>

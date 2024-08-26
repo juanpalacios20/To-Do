@@ -5,9 +5,6 @@ import { PropTypes } from 'prop-types'
 import { Link } from "react-router-dom"
 import axios from 'axios'; // Asegúrate de tener axios instalado
 
-
-
-
 const LazyModal = lazy(() => import("./PerfilModal.jsx"))
 
 function NavBar(props) {
@@ -30,7 +27,7 @@ function NavBar(props) {
     const [categorias, setCategorias] = useState([]);
 
     useEffect(() => {
-        if (props.state) {
+        if (menuModal) {
             axios.get('http://localhost:8000/categorias/obtener/')
                 .then(response => {
                     setCategorias(response.data);
@@ -40,7 +37,7 @@ function NavBar(props) {
                     console.error("Hubo un error al obtener las categorías:", error);
                 });
         }
-    }, [props.state]);
+    }, [menuModal]);
 
     console.log(props.location.pathname)
 

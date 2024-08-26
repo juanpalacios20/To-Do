@@ -1,7 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef} from "react";
 import PropTypes from 'prop-types';
-import axios from 'axios'; // Asegúrate de tener axios instalado
-import NavButton from "./NavButton";
+
 
 function PerfilModal(props) {
     PerfilModal.propTypes = {
@@ -12,12 +11,12 @@ function PerfilModal(props) {
     };
 
     const [open, setOpen] = useState(false);
-    const [categorias, setCategorias] = useState([]);
     const ref = useRef();
 
     function CloseModal() {
         props.toggleOff();
     }
+
 
     function Out() {
         ref.current.focus();
@@ -54,6 +53,8 @@ function PerfilModal(props) {
                         {props.children}
                     </>
                 }
+                
+                {props.perfil ? props.children : null}
 
                 {props.perfil ? null : <button className="ModalButtonMenuAdd Transition transition-all duration-300 z-50" onClick={console.log('Hola')}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-16">

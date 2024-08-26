@@ -1,0 +1,26 @@
+.card-column {
+    width: 300px;
+    margin: 0 10px;
+}
+
+.card-column-header {
+    background: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+}
+
+.card {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 4px;
+    color: #333;
+}
+
+.card-ghost {
+    opacity: 0.5;
+}
+
+.card-ghost-drop {
+    border: 1px dashed #999;
+}

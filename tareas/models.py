@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from estado.models import estado
-from prioridad.models import prioridad
+from categoria.models import categoria
 import datetime
 from django.utils import timezone
 
@@ -10,9 +10,8 @@ class tareas (models.Model):
     user = models.ManyToManyField(User)
     titulo = models.CharField(max_length=200)
     descripcion = models.CharField(max_length=500)
-    fecha = models.DateField(default=datetime.date.today)
     estado = models.ForeignKey(estado, on_delete=models.CASCADE)
-    prioridad = models.ForeignKey(prioridad, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(categoria, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titulo

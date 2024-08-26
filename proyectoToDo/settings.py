@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tareas',
     'estado',
-    'prioridad',
+    'categoria',
 ]
 
 MIDDLEWARE = [

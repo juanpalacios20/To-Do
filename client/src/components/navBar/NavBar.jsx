@@ -78,6 +78,7 @@ function NavBar(props) {
                 <Suspense>
                     <LazyModal state={menuModal} toggleOff={closeMenuModal} >
                         {/* Aqui van las listas de botones de las carpetas */}
+                        
                     </LazyModal>
                 </Suspense>
             </div >

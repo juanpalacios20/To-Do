@@ -131,7 +131,7 @@
 .ModalContainerMenu {
     display: flex;
     all: unset;
-    height: 30vh;
+    max-height: 80vh;
     width: 30vw;
     position: fixed;
     @apply bg-[var(--colorTerciario)];
@@ -141,6 +141,7 @@
     border-radius: 25px;
     z-index: 1000;
     box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
 }
 
 .ModalOpenIconPerfil {

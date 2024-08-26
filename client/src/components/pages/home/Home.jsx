@@ -122,7 +122,7 @@ function Home() {
             </div>
             {/* Modal del formulario para crear o editar una tarea */}
             <Suspense>
-                <LazyModal state={state} toggleOff={() => setState(false)} />
+                <LazyModal tarea state={state} toggleOff={() => setState(false)} />
             </Suspense>
         </>
     );

@@ -186,6 +186,10 @@
     @apply dark:hover:text-[var(--fontColor)];
 }
 
+.NavButtonBorraIcon {
+    display: flex;
+}
+
 .Home {
     height: 65vh;
 }

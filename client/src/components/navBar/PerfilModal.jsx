@@ -1,6 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import PropTypes from 'prop-types';
-
 
 function PerfilModal(props) {
     PerfilModal.propTypes = {
@@ -13,13 +12,27 @@ function PerfilModal(props) {
     };
 
     const [open, setOpen] = useState(false);
-    
+    const [username, setUsername] = useState('');
     const reference = useRef();
+
+    useEffect(() => {
+        // Función para obtener el nombre de usuario
+        async function fetchUsername() {
+            try {
+                const response = await fetch('http://localhost:8000/usuarios/1/');
+                const data = await response.json();
+                setUsername(data.username);
+            } catch (error) {
+                console.error('Error al obtener el usuario:', error);
+            }
+        }
+
+        fetchUsername();
+    }, []);
 
     function CloseModal() {
         props.toggleOff();
     }
-
 
     function Out() {
         reference.current.focus();
@@ -45,7 +58,7 @@ function PerfilModal(props) {
                             </svg>
                         </div>
                         <div className="ModalNombre flex justify-center items-center w-full h-fit py-6">
-                            <span className="ModalNombre text-4xl text-center">Hola</span>
+                            <span className="ModalNombre text-4xl text-center">{`Hola, ${username}`}</span>
                         </div>
                     </>
                     :

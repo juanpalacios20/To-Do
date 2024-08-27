@@ -24,6 +24,14 @@ function AnimatedRoutes() {
                             <LazyHome />
                         </Suspense>
                     } />
+                    
+                    <Route path='/Home/:id/:nombre'exact element={
+                        <Suspense>
+                            <LazyHome />
+                        </Suspense>
+                    } />
+
+
                     <Route path='/Perfil' exact caseSensitive={true} element={
                         <Suspense fallback={<div><h1 className='text-center text-9xl'>Cargando...</h1></div>}>
                             <LazyPerfil />

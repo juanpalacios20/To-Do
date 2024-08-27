@@ -7,7 +7,7 @@ function NavButton(props) {
         children: PropTypes.node.isRequired,
         text: PropTypes.string.isRequired,
         redirectTo: PropTypes.string.isRequired,
-        cerrar: PropTypes.func.isRequired,
+        cerrar: PropTypes.any,
         menu: PropTypes.bool
     }
 

@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom"
+
 function Login() {
+
+    const navigate = useNavigate();
+
+    function handleLogin () {
+        navigate('/');
+    }
 
     return (
         <div >
@@ -35,7 +43,7 @@ function Login() {
                                 />
                             </div>
                             <div className="botoncillo">
-                                <button type="submit" className="login-button">Iniciar Sesión</button>
+                                <button onClick={handleLogin} type="submit" className="login-button">Iniciar Sesión</button>
                             </div>
 
                         </form>

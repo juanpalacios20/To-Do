@@ -60,14 +60,14 @@ function NavBar(props) {
 
         FolderNameRef.current.innerText = categoriaActual
 
-        console.log(categoriaActual); // Imprime el valor de categoriaActual;
+        console.log(location.pathname); // Imprime el valor de categoriaActual;
 
     }, [menuModal, location.pathname]);
 
     return (
         <>
             {/* ======================================= NavBar ======================================= */}
-            <div className={props.location.pathname.includes("/Home") ? "NavBarContainerTasks transition-all duration-300" : `${"NavBarContainerPerfil transition-all duration-300"}`}>
+            <div className={props.location.pathname.includes("/Home") ? "NavBarContainerTasks transition-all duration-300" : (location.pathname ==="/Login" ? `${'hidden'}` : `${"NavBarContainerPerfil transition-all duration-300"}`)}>
                 <div className="NavBar transition-all duration-300">
                     <div className="NavBarContent">
                         <div onClick={() => setMenuModal(true)} className="NavBarMenu hover:cursor-pointer Transition transition-all duration-300">

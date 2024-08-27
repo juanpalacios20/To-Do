@@ -17,34 +17,43 @@ function Home() {
         children: []
     });
 
+    // Mapeo de IDs de estado a nombres de estado
+    const estadosMap = {
+        1: 'Pendientes',
+        2: 'En proceso',
+        3: 'Completadas'
+    };
+
     useEffect(() => {
         axios.get('http://localhost:8000/tareas/obtener/')
             .then(response => {
                 const tareasData = response.data;
                 setTareas(tareasData);
 
-                const columnas = ['Pendientes', 'En proceso', 'Completadas'];
+                const columnas = Object.values(estadosMap);
                 const sceneData = {
                     type: "container",
                     props: { orientation: "horizontal" },
-                    children: columnas.map(estado => ({
-                        id: estado,
+                    children: columnas.map(estadoNombre => ({
+                        id: estadoNombre,
                         type: "container",
-                        name: estado,
+                        name: estadoNombre,
                         props: {
                             orientation: "vertical",
                             className: "card-container"
                         },
-                        children: tareasData.filter(tarea => tarea.estado.nombre === estado).map(tarea => ({
-                            type: "draggable",
-                            id: tarea.id.toString(),
-                            props: {
-                                className: "card",
-                                style: { backgroundColor: pickColor() }
-                            },
-                            data: tarea.titulo,
-                            tareaData: tarea // Incluye la información completa de la tarea
-                        }))
+                        children: tareasData
+                            .filter(tarea => estadosMap[tarea.estado] === estadoNombre)
+                            .map(tarea => ({
+                                type: "draggable",
+                                id: tarea.id.toString(),
+                                props: {
+                                    className: "card",
+                                    style: { backgroundColor: pickColor() }
+                                },
+                                data: tarea.titulo,
+                                tareaData: tarea // Incluye la información completa de la tarea
+                            }))
                     }))
                 };
 
@@ -60,25 +69,47 @@ function Home() {
             const updatedScene = { ...scene };
             const column = updatedScene.children.find(p => p.id === columnId);
             const columnIndex = updatedScene.children.indexOf(column);
-
+    
             const newColumn = { ...column };
             newColumn.children = applyDrag(newColumn.children, dropResult);
             updatedScene.children.splice(columnIndex, 1, newColumn);
-
+    
             setScene(updatedScene);
-
-            const movedTaskId = dropResult.payload.id;
-            const nuevoEstado = column.name;
-
-            axios.put(`http://localhost:8000/tareas/${movedTaskId}/actualizar_estado/`, { estado: nuevoEstado })
+    
+            const movedTask = dropResult.payload.tareaData;
+            const nuevoEstadoNombre = column.name;
+            const nuevoEstadoId = Object.keys(estadosMap).find(key => estadosMap[key] === nuevoEstadoNombre);
+    
+            axios.put(`http://localhost:8000/tareas/${movedTask.id}/actualizar_estado/`, { estado: nuevoEstadoId })
                 .then(response => {
                     console.log("Estado actualizado:", response.data);
+    
+                    // Actualizar el estado de la tarea en el frontend
+                    const updatedTareas = tareas.map(tarea =>
+                        tarea.id === movedTask.id ? { ...tarea, estado: nuevoEstadoId } : tarea
+                    );
+                    setTareas(updatedTareas);
+    
+                    // Actualizar la escena para reflejar el cambio
+                    const updatedSceneWithState = {
+                        ...updatedScene,
+                        children: updatedScene.children.map(col => ({
+                            ...col,
+                            children: col.children.map(card =>
+                                card.id === movedTask.id.toString()
+                                    ? { ...card, tareaData: { ...card.tareaData, estado: nuevoEstadoId } }
+                                    : card
+                            )
+                        }))
+                    };
+                    setScene(updatedSceneWithState);
                 })
                 .catch(error => {
                     console.error("Hubo un error al actualizar el estado de la tarea:", error);
                 });
         }
     };
+    
 
     const getCardPayload = (columnId, index) => {
         return scene.children.find(p => p.id === columnId).children[index];

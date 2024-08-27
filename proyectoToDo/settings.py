@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ToDo_database',
         'USER': 'postgres',
-        'PASSWORD': 'Univalle',
+        'PASSWORD': 'administrador123',
         'HOST': 'localhost',  
         'PORT': '5432',  
     }

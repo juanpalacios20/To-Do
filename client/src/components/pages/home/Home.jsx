@@ -10,7 +10,7 @@ const LazyModal = lazy(() => import('../../Modal/TaskModal.jsx'));
 function Home() {
     const [tareas, setTareas] = useState([]);
     const [state, setState] = useState(false);
-    const [selectedTask, setSelectedTask] = useState(null); // Nuevo estado para la tarea seleccionada
+    const [selectedTask, setSelectedTask] = useState(null);
     const [scene, setScene] = useState({
         type: "container",
         props: { orientation: "horizontal" },
@@ -24,12 +24,12 @@ function Home() {
         3: 'Completadas'
     };
 
-    useEffect(() => {
+    // Función para obtener las tareas del servidor
+    const fetchTareas = () => {
         axios.get('http://localhost:8000/tareas/obtener/')
             .then(response => {
                 const tareasData = response.data;
                 setTareas(tareasData);
-
                 const columnas = Object.values(estadosMap);
                 const sceneData = {
                     type: "container",
@@ -52,16 +52,19 @@ function Home() {
                                     style: { backgroundColor: pickColor() }
                                 },
                                 data: tarea.titulo,
-                                tareaData: tarea // Incluye la información completa de la tarea
+                                tareaData: tarea
                             }))
                     }))
                 };
-
                 setScene(sceneData);
             })
             .catch(error => {
                 console.error("Hubo un error al obtener las tareas:", error);
             });
+    };
+
+    useEffect(() => {
+        fetchTareas(); // Inicializa las tareas al montar el componente
     }, []);
 
     const onCardDrop = (columnId, dropResult) => {
@@ -69,66 +72,32 @@ function Home() {
             const updatedScene = { ...scene };
             const column = updatedScene.children.find(p => p.id === columnId);
             const columnIndex = updatedScene.children.indexOf(column);
-    
+
             const newColumn = { ...column };
             newColumn.children = applyDrag(newColumn.children, dropResult);
             updatedScene.children.splice(columnIndex, 1, newColumn);
-    
+
             setScene(updatedScene);
-    
-            const movedTask = dropResult.payload.tareaData;
-            const nuevoEstadoNombre = column.name;
-            const nuevoEstadoId = Object.keys(estadosMap).find(key => estadosMap[key] === nuevoEstadoNombre);
-    
-            axios.put(`http://localhost:8000/tareas/${movedTask.id}/actualizar_estado/`, { estado: nuevoEstadoId })
+
+            const movedTaskId = dropResult.payload.id;
+            const nuevoEstado = column.name;
+
+            axios.put(`http://localhost:8000/tareas/${movedTaskId}/actualizar_estado/`, { estado: nuevoEstado })
                 .then(response => {
                     console.log("Estado actualizado:", response.data);
-    
-                    // Actualizar el estado de la tarea en el frontend
-                    const updatedTareas = tareas.map(tarea =>
-                        tarea.id === movedTask.id ? { ...tarea, estado: nuevoEstadoId } : tarea
-                    );
-                    setTareas(updatedTareas);
-    
-                    // Actualizar la escena para reflejar el cambio
-                    const updatedSceneWithState = {
-                        ...updatedScene,
-                        children: updatedScene.children.map(col => ({
-                            ...col,
-                            children: col.children.map(card =>
-                                card.id === movedTask.id.toString()
-                                    ? { ...card, tareaData: { ...card.tareaData, estado: nuevoEstadoId } }
-                                    : card
-                            )
-                        }))
-                    };
-                    setScene(updatedSceneWithState);
                 })
                 .catch(error => {
                     console.error("Hubo un error al actualizar el estado de la tarea:", error);
                 });
         }
     };
-    
 
     const getCardPayload = (columnId, index) => {
         return scene.children.find(p => p.id === columnId).children[index];
     };
 
-    const handleTaskCreated = (newTask) => {
-        const updatedScene = { ...scene };
-        const column = updatedScene.children.find(p => p.name === 'Pendientes');
-        column.children.push({
-            type: "draggable",
-            id: newTask.id.toString(),
-            props: {
-                className: "card",
-                style: { backgroundColor: pickColor() }
-            },
-            data: newTask.titulo,
-            tareaData: newTask
-        });
-        setScene(updatedScene);
+    const handleTaskCreated = () => {
+        fetchTareas(); // Actualiza la lista de tareas después de crear, editar o eliminar
     };
 
     return (

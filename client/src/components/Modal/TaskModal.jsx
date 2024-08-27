@@ -17,6 +17,19 @@ function TaskModal({ state, toggleOff, tarea, onTaskCreated }) {
         }
     }, [tarea]);
 
+    // Función para obtener la lista actualizada de tareas
+    const fetchTareas = () => {
+        axios.get('http://localhost:8000/tareas/obtener/')
+            .then(response => {
+                const tareasData = response.data;
+                // Pasa la lista actualizada de tareas al componente padre
+                onTaskCreated(tareasData);
+            })
+            .catch(error => {
+                console.error("Hubo un error al obtener las tareas:", error);
+            });
+    };
+
     // Maneja el envío del formulario
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -32,6 +45,7 @@ function TaskModal({ state, toggleOff, tarea, onTaskCreated }) {
             axios.put(`http://localhost:8000/tareas/${tarea.id}/editar/`, nuevaTarea)
                 .then(response => {
                     console.log("Tarea actualizada:", response.data);
+                    fetchTareas(); // Actualiza la lista de tareas después de editar
                     toggleOff();
                 })
                 .catch(error => {
@@ -42,7 +56,7 @@ function TaskModal({ state, toggleOff, tarea, onTaskCreated }) {
             axios.post('http://localhost:8000/tareas/crear/', nuevaTarea)
                 .then(response => {
                     console.log("Tarea creada:", response.data);
-                    onTaskCreated(response.data); // Notifica al componente padre sobre la nueva tarea
+                    fetchTareas(); // Actualiza la lista de tareas después de crear
                     toggleOff();
                 })
                 .catch(error => {
@@ -90,6 +104,7 @@ function TaskModal({ state, toggleOff, tarea, onTaskCreated }) {
                                     axios.delete(`http://localhost:8000/tareas/${tarea.id}/eliminar/`)
                                         .then(response => {
                                             console.log("Tarea eliminada:", response.data);
+                                            fetchTareas(); // Actualiza la lista de tareas después de eliminar
                                             toggleOff();
                                         })
                                         .catch(error => {

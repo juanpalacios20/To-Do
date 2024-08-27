@@ -4,6 +4,7 @@ import { Container, Draggable } from 'react-smooth-dnd';
 import { applyDrag } from './utils';
 import ListCard from "../../listCard/ListCard";
 import ListCardButton from "../../listCard/ListCardButton";
+import { useParams } from 'react-router-dom';
 
 const LazyModal = lazy(() => import('../../Modal/TaskModal.jsx'));
 
@@ -11,6 +12,7 @@ function Home() {
     const [tareas, setTareas] = useState([]);
     const [state, setState] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
+    const params = useParams();
     const [scene, setScene] = useState({
         type: "container",
         props: { orientation: "horizontal" },

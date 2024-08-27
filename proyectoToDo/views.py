@@ -119,16 +119,17 @@ def actualizar_estado_tarea(request, id):
     except tareas.DoesNotExist:
         return Response({"error": "Tarea no encontrada"}, status=status.HTTP_404_NOT_FOUND)
 
-    try:
-        nuevo_estado_id = int(request.data.get('estado', -1))
-        nuevo_estado = estado.objects.get(id=nuevo_estado_id)
-        tarea.estado = nuevo_estado
-        tarea.save()
-        return Response({"message": "Estado actualizado con éxito"}, status=status.HTTP_200_OK)
-    except estado.DoesNotExist:
-        return Response({"error": "Estado no encontrado"}, status=status.HTTP_400_BAD_REQUEST)
-    except ValueError:
-        return Response({"error": "Estado inválido"}, status=status.HTTP_400_BAD_REQUEST)
+    nuevo_estado_id = request.data.get('estado')
+    if nuevo_estado_id:
+        try:
+            nuevo_estado = estado.objects.get(id=nuevo_estado_id)
+            tarea.estado = nuevo_estado
+            tarea.save()
+            return Response({"message": "Estado actualizado con éxito"}, status=status.HTTP_200_OK)
+        except estado.DoesNotExist:
+            return Response({"error": "Estado no encontrado"}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({"error": "Estado no proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])

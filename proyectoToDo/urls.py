@@ -31,7 +31,6 @@ urlpatterns = [
     path('tareas/<int:id>/eliminar/', views.eliminar_tarea, name='eliminar_tarea'),  
     path('tareas/<int:id>/actualizar_estado/', views.actualizar_estado_tarea, name='actualizar_estado_tarea'),
     path('categorias/obtener/', views.obtener_categorias, name='obtener_categorias'),
-    path('usuarios/<int:id>/', views.obtener_usuario, name='obtener_usuario'),
     path('tareas/conteo/', views.conteo_tareas_por_estado, name='conteo_tareas_por_estado'),
     
     

@@ -9,6 +9,53 @@ from estado.models import estado
 from categoria.models import categoria
 from categoria.categoria_serializer import categoriaSerializar
 from rest_framework.views import APIView
+from django.contrib.auth.models import User
+from rest_framework import serializers
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username']  # Incluye cualquier campo que necesites
+
+@api_view(['GET'])
+def obtener_usuario(request, id):
+    usuario = get_object_or_404(User, id=id)
+    serializer = UserSerializer(usuario)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def obtener_usuario(request, id):
+    try:
+        usuario = get_object_or_404(User, id=id)
+        data = {
+            'username': usuario.username,
+            'email': usuario.email,
+            'password': usuario.password,  # Nota: No es seguro exponer contraseñas en texto claro.
+        }
+        return Response(data, status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def conteo_tareas_por_estado(request):
+    usuario_id = 1  # Puedes cambiar esto según sea necesario
+    print(f"Contando tareas para usuario con ID: {usuario_id}")
+
+    pendientes = tareas.objects.filter(user=usuario_id, estado=1).count()
+    en_proceso = tareas.objects.filter(user=usuario_id, estado=2).count()
+    completadas = tareas.objects.filter(user=usuario_id, estado=3).count()
+
+    print(f"Tareas pendientes: {pendientes}")
+    print(f"Tareas en proceso: {en_proceso}")
+    print(f"Tareas completadas: {completadas}")
+
+    data = {
+        'pendientes': pendientes,
+        'en_proceso': en_proceso,
+        'completadas': completadas
+    }
+    return Response(data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def obtener_tarea(request):
@@ -72,17 +119,17 @@ def actualizar_estado_tarea(request, id):
     except tareas.DoesNotExist:
         return Response({"error": "Tarea no encontrada"}, status=status.HTTP_404_NOT_FOUND)
 
-    nuevo_estado_id = request.data.get('estado')
-    if nuevo_estado_id:
-        try:
-            nuevo_estado = estado.objects.get(id=nuevo_estado_id)
-            tarea.estado = nuevo_estado
-            tarea.save()
-            return Response({"message": "Estado actualizado con éxito"}, status=status.HTTP_200_OK)
-        except estado.DoesNotExist:
-            return Response({"error": "Estado no encontrado"}, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response({"error": "Estado no proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        nuevo_estado_id = int(request.data.get('estado', -1))
+        nuevo_estado = estado.objects.get(id=nuevo_estado_id)
+        tarea.estado = nuevo_estado
+        tarea.save()
+        return Response({"message": "Estado actualizado con éxito"}, status=status.HTTP_200_OK)
+    except estado.DoesNotExist:
+        return Response({"error": "Estado no encontrado"}, status=status.HTTP_400_BAD_REQUEST)
+    except ValueError:
+        return Response({"error": "Estado inválido"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
 def obtener_categorias(request):

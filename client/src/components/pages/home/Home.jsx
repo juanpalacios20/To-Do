@@ -4,6 +4,7 @@ import { Container, Draggable } from 'react-smooth-dnd';
 import { applyDrag } from './utils';
 import ListCard from "../../listCard/ListCard";
 import ListCardButton from "../../listCard/ListCardButton";
+import { useParams } from 'react-router-dom';
 
 const LazyModal = lazy(() => import('../../Modal/TaskModal.jsx'));
 
@@ -11,6 +12,7 @@ function Home() {
     const [tareas, setTareas] = useState([]);
     const [state, setState] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
+    const params = useParams();
     const [scene, setScene] = useState({
         type: "container",
         props: { orientation: "horizontal" },
@@ -72,17 +74,20 @@ function Home() {
             const updatedScene = { ...scene };
             const column = updatedScene.children.find(p => p.id === columnId);
             const columnIndex = updatedScene.children.indexOf(column);
-
+    
             const newColumn = { ...column };
             newColumn.children = applyDrag(newColumn.children, dropResult);
             updatedScene.children.splice(columnIndex, 1, newColumn);
-
+    
             setScene(updatedScene);
-
+    
             const movedTaskId = dropResult.payload.id;
-            const nuevoEstado = column.name;
-
-            axios.put(`http://localhost:8000/tareas/${movedTaskId}/actualizar_estado/`, { estado: nuevoEstado })
+            const nuevoEstadoNombre = column.name;
+    
+            // Obtener el ID del nuevo estado
+            const nuevoEstadoId = Object.keys(estadosMap).find(key => estadosMap[key] === nuevoEstadoNombre);
+    
+            axios.put(`http://localhost:8000/tareas/${movedTaskId}/actualizar_estado/`, { estado: nuevoEstadoId })
                 .then(response => {
                     console.log("Estado actualizado:", response.data);
                 })
@@ -91,6 +96,8 @@ function Home() {
                 });
         }
     };
+    
+    
 
     const getCardPayload = (columnId, index) => {
         return scene.children.find(p => p.id === columnId).children[index];

@@ -10,6 +10,7 @@
   --colorPrimarioVertical: linear-gradient(to top, #F3515F, #EEA138);
   --colorSecundario: #F2D8B2;
   --colorTerciario: #fff;
+  --colorCuarto: #303030;
   --fontColor: #000;
   --fontFamily: 'josefin sans', sans-serif;
   overflow: hidden;

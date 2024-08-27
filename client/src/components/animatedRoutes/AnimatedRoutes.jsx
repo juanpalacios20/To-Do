@@ -6,10 +6,12 @@ import NavBar from '../navBar/NavBar'
 // Estas son rutas dinamicas para hacer la carga de las paginas de forma diferida
 const LazyHome = lazy(() => import('../pages/home/home'))
 const LazyPerfil = lazy(() => import('../pages/Perfil/Perfil'))
+const LazyLogin = lazy(() => import('../pages/Login/Login'))
 
 function AnimatedRoutes() {
 
     const location = useLocation()
+
 
     return (
         <>
@@ -27,6 +29,13 @@ function AnimatedRoutes() {
                     <Route path='/Perfil' exact caseSensitive={true} element={
                         <Suspense fallback={<div><h1 className='text-center text-9xl'>Cargando...</h1></div>}>
                             <LazyPerfil />
+                        </Suspense>
+                    } />
+
+                    {/* =============================== Rutas de Login =============================== */}
+                    <Route path='/Login' exact caseSensitive={true} element={
+                        <Suspense fallback={<div><h1 className='text-center text-9xl'>Cargando...</h1></div>}>
+                            <LazyLogin />
                         </Suspense>
                     } />
                 </Routes>

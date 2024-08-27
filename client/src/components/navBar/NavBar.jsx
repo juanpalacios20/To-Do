@@ -50,7 +50,7 @@ function NavBar(props) {
     return (
         <>
             {/* ======================================= NavBar ======================================= */}
-            <div className={props.location.pathname === "/Home" ? "NavBarContainerTasks transition-all duration-300" : `${"NavBarContainerPerfil transition-all duration-300"}`}>
+            <div className={props.location.pathname === "/Home" ? "NavBarContainerTasks transition-all duration-300" : (location.pathname === "/Login" ? `${"NavbarLogin"}` :  `${"NavBarContainerPerfil transition-all duration-300"}` )}>
                 <div className="NavBar transition-all duration-300">
                     <div className="NavBarContent">
                         <div onClick={() => setMenuModal(true)} className="NavBarMenu hover:cursor-pointer Transition transition-all duration-300">

@@ -7,7 +7,7 @@ function PerfilModal(props) {
         state: PropTypes.bool.isRequired,
         toggleOff: PropTypes.func.isRequired,
         perfil: PropTypes.bool,
-        children: PropTypes.array,
+        children: PropTypes.any,
         setNewCategory: PropTypes.func,
         newCategory: PropTypes.bool
     };

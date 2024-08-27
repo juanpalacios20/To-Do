@@ -10,49 +10,61 @@ const LazyModal = lazy(() => import('../../Modal/TaskModal.jsx'));
 function Home() {
     const [tareas, setTareas] = useState([]);
     const [state, setState] = useState(false);
-    const [selectedTask, setSelectedTask] = useState(null); // Nuevo estado para la tarea seleccionada
+    const [selectedTask, setSelectedTask] = useState(null);
     const [scene, setScene] = useState({
         type: "container",
         props: { orientation: "horizontal" },
         children: []
     });
 
-    useEffect(() => {
+    // Mapeo de IDs de estado a nombres de estado
+    const estadosMap = {
+        1: 'Pendientes',
+        2: 'En proceso',
+        3: 'Completadas'
+    };
+
+    // Función para obtener las tareas del servidor
+    const fetchTareas = () => {
         axios.get('http://localhost:8000/tareas/obtener/')
             .then(response => {
                 const tareasData = response.data;
                 setTareas(tareasData);
-
-                const columnas = ['Pendientes', 'En proceso', 'Completadas'];
+                const columnas = Object.values(estadosMap);
                 const sceneData = {
                     type: "container",
                     props: { orientation: "horizontal" },
-                    children: columnas.map(estado => ({
-                        id: estado,
+                    children: columnas.map(estadoNombre => ({
+                        id: estadoNombre,
                         type: "container",
-                        name: estado,
+                        name: estadoNombre,
                         props: {
                             orientation: "vertical",
                             className: "card-container"
                         },
-                        children: tareasData.filter(tarea => tarea.estado.nombre === estado).map(tarea => ({
-                            type: "draggable",
-                            id: tarea.id.toString(),
-                            props: {
-                                className: "card",
-                                style: { backgroundColor: pickColor() }
-                            },
-                            data: tarea.titulo,
-                            tareaData: tarea // Incluye la información completa de la tarea
-                        }))
+                        children: tareasData
+                            .filter(tarea => estadosMap[tarea.estado] === estadoNombre)
+                            .map(tarea => ({
+                                type: "draggable",
+                                id: tarea.id.toString(),
+                                props: {
+                                    className: "card",
+                                    style: { backgroundColor: pickColor() }
+                                },
+                                data: tarea.titulo,
+                                tareaData: tarea
+                            }))
                     }))
                 };
-
                 setScene(sceneData);
             })
             .catch(error => {
                 console.error("Hubo un error al obtener las tareas:", error);
             });
+    };
+
+    useEffect(() => {
+        fetchTareas(); // Inicializa las tareas al montar el componente
     }, []);
 
     const onCardDrop = (columnId, dropResult) => {
@@ -84,20 +96,8 @@ function Home() {
         return scene.children.find(p => p.id === columnId).children[index];
     };
 
-    const handleTaskCreated = (newTask) => {
-        const updatedScene = { ...scene };
-        const column = updatedScene.children.find(p => p.name === 'Pendientes');
-        column.children.push({
-            type: "draggable",
-            id: newTask.id.toString(),
-            props: {
-                className: "card",
-                style: { backgroundColor: pickColor() }
-            },
-            data: newTask.titulo,
-            tareaData: newTask
-        });
-        setScene(updatedScene);
+    const handleTaskCreated = () => {
+        fetchTareas(); // Actualiza la lista de tareas después de crear, editar o eliminar
     };
 
     return (

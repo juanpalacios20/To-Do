@@ -1,22 +1,10 @@
-# tareas/serializer.py
-
 from rest_framework import serializers
-from .models import tareas, estado
-
-class EstadoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = estado
-        fields = ['nombre']  # Solo el nombre del estado
+from .models import tareas, estado, categoria
 
 class TareasSerializar(serializers.ModelSerializer):
-    estado = EstadoSerializer()  # Usa el serializador para Estado
-    categoria = serializers.CharField(source='categoria.nombre', default='')  # Ajusta esto si 'categoria' es un modelo relacionado
+    estado = serializers.PrimaryKeyRelatedField(queryset=estado.objects.all(), required=False)
+    categoria = serializers.PrimaryKeyRelatedField(queryset=categoria.objects.all(), required=False)
 
     class Meta:
         model = tareas
         fields = ['id', 'titulo', 'descripcion', 'user', 'estado', 'categoria']
-        extra_kwargs = {
-            'user': {'default': 1},
-            'estado': {'default': 1},
-            'categoria': {'default': 1}
-        } 

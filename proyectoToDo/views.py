@@ -25,22 +25,13 @@ def crear_tarea(request):
 
     # Asignar valores predeterminados si no están presentes
     if 'user' not in data:
-        data['user'] = [1]  # Asegúrate de enviar una lista para ManyToManyField
-        
+        data['user'] = [1]  # Usuario predeterminado
+
     if 'categoria' not in data:
         data['categoria'] = 1  # ID de la categoría por defecto
 
     if 'estado' not in data:
         data['estado'] = 1  # ID del estado por defecto
-
-    # Convertir los IDs en diccionarios si están presentes
-    if isinstance(data.get('estado'), int):
-        estado_instance = get_object_or_404(estado, id=data['estado'])
-        data['estado'] = estado_instance.id  # Asegúrate de que sea un ID
-
-    if isinstance(data.get('categoria'), int):
-        categoria_instance = get_object_or_404(categoria, id=data['categoria'])
-        data['categoria'] = categoria_instance.id  # Asegúrate de que sea un ID
 
     serializer = TareasSerializar(data=data)
     
@@ -50,13 +41,19 @@ def crear_tarea(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-
 @api_view(['PUT'])
 def editar_tarea(request, id):
     tarea = get_object_or_404(tareas, id=id)
-    serializer = TareasSerializar(tarea, data=request.data, partial=True)  # partial=True para actualizaciones parciales
+    
+    data = request.data.copy()
+
+    if 'estado' in data and isinstance(data['estado'], int):
+        data['estado'] = get_object_or_404(estado, id=data['estado']).id
+
+    if 'categoria' in data and isinstance(data['categoria'], int):
+        data['categoria'] = get_object_or_404(categoria, id=data['categoria']).id
+
+    serializer = TareasSerializar(tarea, data=data, partial=True)  # partial=True para actualizaciones parciales
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
@@ -68,7 +65,6 @@ def eliminar_tarea(request, id):
     tarea.delete()
     return Response({"message": "Tarea eliminada con éxito"}, status=status.HTTP_204_NO_CONTENT)
 
-
 @api_view(['PUT'])
 def actualizar_estado_tarea(request, id):
     try:
@@ -76,10 +72,10 @@ def actualizar_estado_tarea(request, id):
     except tareas.DoesNotExist:
         return Response({"error": "Tarea no encontrada"}, status=status.HTTP_404_NOT_FOUND)
 
-    nuevo_estado_nombre = request.data.get('estado')
-    if nuevo_estado_nombre:
+    nuevo_estado_id = request.data.get('estado')
+    if nuevo_estado_id:
         try:
-            nuevo_estado = estado.objects.get(nombre=nuevo_estado_nombre)
+            nuevo_estado = estado.objects.get(id=nuevo_estado_id)
             tarea.estado = nuevo_estado
             tarea.save()
             return Response({"message": "Estado actualizado con éxito"}, status=status.HTTP_200_OK)
@@ -105,7 +101,3 @@ class TareaListView(APIView):
         
         serializer = TareasSerializar(tareas, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-
-

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'corsheaders',
     'rest_framework',
     'tareas',
@@ -85,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ToDo_database',
         'USER': 'postgres',
-        'PASSWORD': 'teameval',
+        'PASSWORD': 'administrador123',
         'HOST': 'localhost',  
         'PORT': '5432',  
     }
